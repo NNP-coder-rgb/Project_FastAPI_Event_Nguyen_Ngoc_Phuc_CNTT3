@@ -1,0 +1,7 @@
+2026-09-01 15:45:15,597 - INFO - [app.services.event] - [CREATE EVENT] User ID=1 đã tạo Sự kiện ID=1 ('Le Hoi Anh Sang')
+2026-09-01 15:45:37,215 - INFO - [app.services.event] - [CREATE EVENT] User ID=1 đã tạo Sự kiện ID=2 ('Le Hoi Hoa Dang')
+2026-09-01 15:45:46,378 - INFO - [app.services.event] - [CREATE EVENT] User ID=1 đã tạo Sự kiện ID=3 ('Le Hoi Hoa Trang')
+2026-09-01 15:46:34,081 - INFO - [app.services.event] - [CREATE EVENT] User ID=1 đã tạo Sự kiện ID=4 ('Le Hoi Halloween')
+2026-09-01 15:46:51,585 - INFO - [app.services.event] - [CREATE EVENT] User ID=1 đã tạo Sự kiện ID=5 ('Hoi Cho Dau Nam')
+2026-09-01 15:47:06,535 - INFO - [app.services.event] - [CREATE EVENT] User ID=1 đã tạo Sự kiện ID=6 ('Le Hoi Chua Bai Dinh')
+2026-09-01 15:47:21,306 - INFO - [app.services.event] - [CREATE EVENT] User ID=1 đã tạo Sự kiện ID=7 ('Le Ta Cuoi Nam')
