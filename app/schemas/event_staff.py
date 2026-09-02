@@ -7,7 +7,6 @@ class EventStaffBase(BaseModel):
     role: str = "MEMBER"
 
 class EventStaffCreate(BaseModel):
-    role: Optional[str] = "MEMBER"
     user_id: int
 
 class EventStaffResponse(BaseModel):

@@ -163,31 +163,26 @@ def delete_event_ser(event_id: int, current_user: User, db: Session):
 def add_member_ser(event_id: int, staff: EventStaffCreate, current_user: User, db: Session) -> EventStaff:
     get_event_or_404(db, event_id)
     check_is_owner(db, event_id, current_user.id)
+
     target_user = db.query(User).filter(User.id == staff.user_id).first()
-    if not  target_user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Người dùng được thêm không tồn tại"
-        )
+    if not target_user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Người dùng được thêm không tồn tại")
 
     existing_staff = get_staff_member(db, event_id, staff.user_id)
     if existing_staff:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Thành viên đã có trong sự kiện"
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Thành viên đã có trong sự kiện")
 
     new_staff = EventStaff(
         event_id = event_id,
         user_id = staff.user_id,
-        role = staff.role or "MEMBER"
+        role = "MEMBER"
     )
 
     try:
         db.add(new_staff)
         db.commit()
         db.refresh(new_staff)
-    
+        logger.info(f"[ADD MEMBER] User ID={current_user.id} đã thêm User ID={staff.user_id} vào Sự kiện ID={event_id}")
         return new_staff
     except Exception as e:
         db.rollback()
@@ -222,6 +217,7 @@ def remove_member_ser(event_id: int, user_id: int, current_user: User, db: Sessi
     try:
         db.delete(target_staff)
         db.commit()
+        logger.info(f"[REMOVE MEMBER] User ID={current_user.id} đã xóa User ID={user_id} khỏi Sự kiện ID={event_id}")
     except Exception as e:
         db.rollback()
         raise HTTPException(

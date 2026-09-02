@@ -62,11 +62,6 @@ def list_event_tasks(
         order=order
     )
     result["items"] = [EventTaskResponse.model_validate(t) for t in result["items"]]
-    if result["total"] < 1:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Danh sách công việc đang trống"
-        )
 
     return APIResponse(
         status_code=status.HTTP_200_OK,

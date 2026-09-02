@@ -29,7 +29,7 @@ def register(user: UserCreate, request: Request, db: Session = Depends(get_db)):
 def login(login_data: LoginRequest, request: Request, db: Session = Depends(get_db)):
     tokens = login_ser(login_data=login_data, db=db, request = request)
     return APIResponse(
-        status_code=status.HTTP_201_CREATED,
+        status_code=status.HTTP_200_OK,
         message="Tạo Token thành công",
         data=tokens,
         errors=None,

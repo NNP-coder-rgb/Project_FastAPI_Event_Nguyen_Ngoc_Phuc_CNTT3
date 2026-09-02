@@ -11,7 +11,7 @@ class Event(Base):
     owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime, default=datetime.now, nullable=False)
     is_delete = Column(Boolean, default=False)
-    delete_at = Column(DateTime, default=datetime.now)
+    deleted_at = Column(DateTime, nullable=True, default=None)
 
     owner = relationship("User", back_populates="events")
     event_tasks = relationship("EventTask", back_populates="event", cascade="all, delete-orphan")

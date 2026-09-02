@@ -9,27 +9,16 @@ from typing import Any, Dict
 def get_me_ser(current_user: User) -> UserResponse:
     return UserResponse.model_validate(current_user)
 
-def get_all_users_ser(
-    db: Session,
-    search: Optional[str] = None,
-    is_active: Optional[bool] = None,
-    page: int = 1,
-    size: int = 10
-) -> Dict[str, Any]:
+def get_all_users_ser(db: Session, search=None, is_active=None, page: int = 1, size: int = 10):
     query = db.query(User)
 
     if search:
         query = query.filter(
-            or_(
-                User.full_name.ilike(f"%{search}%"),
-                User.email.ilike(f"%{search}%")
-            )
+            or_(User.full_name.ilike(f"%{search}%"), User.email.ilike(f"%{search}%"))
         )
-
     if is_active is not None:
         query = query.filter(User.is_active == is_active)
 
-    total_items = query.count()
     offset = (page - 1) * size
     users = query.offset(offset).limit(size).all()
 

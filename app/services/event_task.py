@@ -62,7 +62,9 @@ def get_task_or_404(db: Session, task_id: int) -> EventTask:
 def create_task_ser(event_id: int, task: EventTaskCreate, current_user: User, db: Session) -> EventTask:
     check_user_in_event(db, event_id, current_user.id)
 
-    validate_status_and_priority(task.status, task.priority)
+    task_status = task.status or "TODO"
+    task_priority = task.priority or "MEDIUM"
+    validate_status_and_priority(task_status, task_priority)
 
     if task.assignee_id:
         check_assignee_in_event(db, event_id, task.assignee_id)
@@ -71,8 +73,8 @@ def create_task_ser(event_id: int, task: EventTaskCreate, current_user: User, db
         event_id = event_id,
         title = task.title.strip(),
         description = task.description,
-        status = task.status,
-        priority = task.priority,
+        status = task_status,
+        priority = task_priority,
         due_date = task.due_date,
         assignee_id = task.assignee_id
     )
